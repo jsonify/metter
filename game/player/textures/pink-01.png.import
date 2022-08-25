@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/character_0004.png-540e3b8c73fdfa217896105475fac831.stex"
+path="res://.import/pink-01.png-f5f9e753173f7a8391cd05b4aea8e2fd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/textures/character_0004.png"
-dest_files=[ "res://.import/character_0004.png-540e3b8c73fdfa217896105475fac831.stex" ]
+source_file="res://player/textures/pink-01.png"
+dest_files=[ "res://.import/pink-01.png-f5f9e753173f7a8391cd05b4aea8e2fd.stex" ]
 
 [params]
 

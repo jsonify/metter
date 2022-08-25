@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/character_0000.png-2b7efda9b33ef402485f91ac48733fdb.stex"
+path="res://.import/tan-01.png-add7bf315ab6814b4c12e7e9024cc3e3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/textures/character_0000.png"
-dest_files=[ "res://.import/character_0000.png-2b7efda9b33ef402485f91ac48733fdb.stex" ]
+source_file="res://player/textures/tan-01.png"
+dest_files=[ "res://.import/tan-01.png-add7bf315ab6814b4c12e7e9024cc3e3.stex" ]
 
 [params]
 
