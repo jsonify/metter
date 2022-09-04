@@ -1,62 +1,71 @@
 extends KinematicBody2D
 class_name Player
 
+onready var animation_state = $AnimationTree.get("parameters/playback")
+
+export var GRAVITY := 1000
+export var JUMP_SPEED := -300
+export var WALK_SPEED := 75
+export var DASH_SPEED := 300
+export var NUM_DASHES := 1
+
+# Handle slopes
+var snap_length := 2
+var snap_direction := Vector2.DOWN
+var snap_vector := snap_direction * snap_length
+var floor_max_angle := deg2rad(65)
+
 var velocity := Vector2.ZERO
+var direction := "right"
+var is_attacking := false
+var is_dashing := false
 
-export(int) var JUMP_FORCE := -130
-export(int) var JUMP_RELEASE_FORCE := -70
-export(int) var MAX_SPEED := 50
-export(int) var ACCELERATIION := 10
-export(int) var FRICTION := 10
-export(int) var GRAVITY := 20
-export(int) var ADDITIONAL_FALL_GRAVITY := 1
-
-onready var animatedSprite = $AnimatedSprite
+var state
+enum states {
+	IDLE,
+	WALK,
+	FALL,
+	JUMP,
+	ATTACK,
+	DASH
+}
 
 func _ready() -> void:
-	animatedSprite.frames = load("res://player/player-red-skin.tres")
-
-func _physics_process(delta: float) -> void:
-	apply_gravity()
-	var input := Vector2.ZERO
-	input.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-
-	if input.x == 0:
-		apply_friction()
-		animatedSprite.animation = "idle"
-	else:
-		apply_acceleration(input.x)
-		animatedSprite.animation = "run"
-		if input.x > 0:
-			animatedSprite.flip_h = false
-		elif input.x < 0:
-			animatedSprite.flip_h = true
-			
-
-	if is_on_floor():
-		if Input.is_action_just_pressed("ui_select"):
-			velocity.y = JUMP_FORCE
-	else:
-		animatedSprite.animation = "jump"
-		if Input.is_action_just_released("ui_select") and velocity.y < JUMP_RELEASE_FORCE:
-			velocity.y = JUMP_RELEASE_FORCE
-			
-		if velocity.y < 0:
-			velocity.y += ADDITIONAL_FALL_GRAVITY
+	state = states.IDLE
 	
-	var was_in_air = not is_on_floor()
-	velocity = move_and_slide(velocity, Vector2.UP)
-	var just_landed = is_on_floor() and was_in_air
-	if just_landed:
-		animatedSprite.animation = "run"
-		animatedSprite.frame = 1
+func on_attack_finished():
+	is_attacking = false
+	
+func on_dash_finished():
+	is_dashing = false
+	
+# Replenish player dash count
+func reset_dash_counter(value):
+	NUM_DASHES = value
 
-func apply_gravity():
-	velocity.y += GRAVITY
-	velocity.y = min(velocity.y, 500)
+func has_dashes() -> bool:
+	if NUM_DASHES > 0:
+		return true
+	return false
 	
-func apply_friction():
-	velocity.x = move_toward(velocity.x, 0, FRICTION)
+func restart_level():
+	pass
+		
+func update_direction(input_direction_x) -> void:
+	if input_direction_x > 0:
+		set_direction_right()
+	elif input_direction_x < 0:
+		set_direction_left()
+
+func apply_gravity(delta):
+	velocity.y += GRAVITY * delta
 	
-func apply_acceleration(amount):
-	velocity.x = move_toward(velocity.x, MAX_SPEED * amount, ACCELERATIION)
+func set_direction_right():
+	direction = "right"
+	$Sprite.flip_h = false
+	$HitboxPosition.rotation_degrees = 0
+	
+func set_direction_left():
+	direction = "left"
+	$Sprite.flip_h = true
+	$HitboxPosition.rotation_degrees = 180	

@@ -83,8 +83,7 @@ height = 0.0
 [node name="enemy" type="KinematicBody2D"]
 collision_layer = 2
 script = ExtResource( 2 )
-GRAVITY = null
-WALK_SPEED = null
+WALK_SPEED = 10
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 15 )
@@ -104,3 +103,6 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2( 0, 1 )
 shape = SubResource( 17 )
+
+[connection signal="timeout" from="MoveTimer" to="." method="_on_MoveTimer_timeout"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
