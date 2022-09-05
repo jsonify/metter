@@ -33,7 +33,14 @@ func physics_update(delta: float) -> void:
 													player.floor_max_angle, 
 													false)
 	
-	# handle collisions in future tutorial
+	# handle collisions
+	if player.get_slide_count() > 0:
+		for i in player.get_slide_count():
+			var collision = player.get_slide_collision(i)
+			var collider = collision.collider
+			if collider is SpikeClub:
+				state_machine.transition_to("Death")
+				return
 	
 	# handle other transitions
 	if Input.is_action_just_pressed("jump"):

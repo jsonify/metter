@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "StaticBody2D",
 "class": "GroundButton",
 "language": "GDScript",
-"path": "res://objects/GroundButton.gd"
+"path": "res://objects/GroundButton/GroundButton.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Player",
@@ -32,7 +32,17 @@ _global_script_classes=[ {
 "base": "RigidBody2D",
 "class": "RigidBox",
 "language": "GDScript",
-"path": "res://RigidBox.gd"
+"path": "res://objects/RigidBox/RigidBox.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "SpikeClub",
+"language": "GDScript",
+"path": "res://objects/SpikeClub/SpikeClub.gd"
+}, {
+"base": "StaticBody2D",
+"class": "SpikePit",
+"language": "GDScript",
+"path": "res://objects/SpikePit/SpikePit.gd"
 }, {
 "base": "Node",
 "class": "State",
@@ -50,6 +60,8 @@ _global_script_class_icons={
 "Player": "",
 "PlayerState": "",
 "RigidBox": "",
+"SpikeClub": "",
+"SpikePit": "",
 "State": "",
 "StateMachine": ""
 }

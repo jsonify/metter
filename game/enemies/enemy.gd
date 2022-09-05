@@ -28,6 +28,12 @@ var state
 var rng := RandomNumberGenerator.new() # creates a new node of this class
 var input_direction_x 
 
+# Handle slopes
+var snap_length := 2
+var snap_direction := Vector2.DOWN
+var snap_vector := snap_direction * snap_length
+var floor_max_angle := deg2rad(65)
+
 enum states {
 	WALK,
 	DEATH
@@ -69,7 +75,22 @@ func _physics_process(delta: float) -> void:
 			update_direction(input_direction_x)
 			velocity.x = WALK_SPEED * input_direction_x
 			apply_gravity(delta)
-			velocity = move_and_slide(velocity, Vector2.UP)
+#			velocity = move_and_slide(velocity, Vector2.UP)
+			velocity = move_and_slide_with_snap(velocity, 
+													snap_vector, 
+													Vector2.UP, 
+													true, 
+													4, 
+													floor_max_angle, 
+													false)
+			
+			# handle collisions
+			if get_slide_count() > 0:
+				for i in get_slide_count():
+					var collision = get_slide_collision(i)
+					var collider = collision.collider
+					if collider is Player:
+						collider.get_node("StateMachine").transition_to("Death")
 			
 		states.DEATH:
 			$AnimatedSprite.play("death")
