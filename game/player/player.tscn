@@ -203,7 +203,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 30 ]
 }
-
 [sub_resource type="Animation" id=10]
 resource_name = "Walk"
 length = 0.6
