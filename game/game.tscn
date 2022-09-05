@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://world/Tiles/TileMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/Backgrounds/Background.tscn" type="PackedScene" id=2]
 [ext_resource path="res://enemies/enemy.tscn" type="PackedScene" id=3]
-[ext_resource path="res://player/player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://objects/Switch/Switch.tscn" type="PackedScene" id=5]
 [ext_resource path="res://objects/StoneGate/StoneGate.tscn" type="PackedScene" id=6]
 [ext_resource path="res://objects/RigidBox/RigidBox.tscn" type="PackedScene" id=7]
@@ -25,6 +24,3 @@ position = Vector2( 76, 20 )
 
 [node name="RigidBox" parent="." instance=ExtResource( 7 )]
 position = Vector2( 231, 148 )
-
-[node name="player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 74, 33 )
